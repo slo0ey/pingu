@@ -10,7 +10,8 @@ class PingCommand extends ChatInputCommand {
     super(
       new SlashCommandBuilder()
         .setName('ping')
-        .setDescription('Common ping-pong command.'),
+        .setDescription('Common ping-pong command.')
+        .toJSON(),
     );
   }
 

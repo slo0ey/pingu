@@ -1,14 +1,13 @@
 import {
   type ChatInputCommandInteraction,
   type RESTPostAPIChatInputApplicationCommandsJSONBody,
-  SlashCommandBuilder,
 } from 'discord.js';
 
 abstract class ChatInputCommand {
   public readonly commandData: RESTPostAPIChatInputApplicationCommandsJSONBody;
 
-  constructor(commandBuilder: SlashCommandBuilder) {
-    this.commandData = commandBuilder.toJSON();
+  constructor(commandBuilder: RESTPostAPIChatInputApplicationCommandsJSONBody) {
+    this.commandData = commandBuilder;
   }
 
   abstract execute(interaction: ChatInputCommandInteraction): Promise<void>;
