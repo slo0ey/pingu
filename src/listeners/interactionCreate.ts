@@ -16,7 +16,16 @@ async function interactionCreateListener(interaction: Interaction) {
     try {
       await command.execute(interaction);
     } catch (error) {
-      console.error(`Error occurred: ${error}`);
+      if (error === null || error === undefined) {
+        console.log('UNKNOWN ERROR!!');
+      } else {
+        const err = error as Error;
+        console.error(
+          `Error occurred: ${err.message}
+Cause: ${err.cause}
+Stack: ${err.stack}`,
+        );
+      }
       await interaction.reply({
         content: '실행중 오류가 발생했습니다.. :cry:',
         flags: MessageFlags.Ephemeral,
