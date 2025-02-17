@@ -43,11 +43,11 @@ class DiceCommand extends ChatInputCommand {
 
     const dice = randInt(min, max);
     if (user === null) {
-      await interaction.reply(`주사위의 숫자는 ${dice}! :game_die:`);
+      await interaction.reply(`주사위의 숫자는 \`${dice}\`! :game_die:`);
     } else {
       const dice2 = randInt(min, max);
       await interaction.reply(
-        `<@${interaction.user.id}> 님의 주사위는 ${dice}!\n<@${user.id}> 님의 주사위는 ${dice2}!`,
+        `<@${interaction.user.id}> 님의 주사위는 \`${dice}\`! :game_die:\n<@${user.id}> 님의 주사위는 \`${dice2}\` :game_die:!`,
       );
     }
   }
