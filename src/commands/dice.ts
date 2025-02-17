@@ -46,9 +46,9 @@ class DiceCommand extends ChatInputCommand {
       await interaction.reply(`주사위의 숫자는 ${dice}! :game_die:`);
     } else {
       const dice2 = randInt(min, max);
-      await interaction.reply(`
-        <@${interaction.user.id}> 님의 주사위는 ${dice}!
-        <@${user.id}> 님의 주사위는 ${dice2}!`);
+      await interaction.reply(
+        `<@${interaction.user.id}> 님의 주사위는 ${dice}!\n<@${user.id}> 님의 주사위는 ${dice2}!`,
+      );
     }
   }
 }
