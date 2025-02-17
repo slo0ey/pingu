@@ -11,13 +11,17 @@ class DiceCommand extends ChatInputCommand {
         .addIntegerOption((option) =>
           option
             .setName('min')
-            .setDescription('주사위에서 나올 최소 숫자를 지정합니다.')
+            .setDescription(
+              '주사위에서 나올 최소 숫자를 지정합니다. (최소값: 1)',
+            )
             .setMinValue(1),
         )
         .addIntegerOption((option) =>
           option
             .setName('max')
-            .setDescription('주사위에서 나올 최대 숫자를 지정합니다.')
+            .setDescription(
+              '주사위에서 나올 최대 숫자를 지정합니다. (최대값: 65535)',
+            )
             .setMaxValue(65535),
         )
         .addUserOption((option) =>
