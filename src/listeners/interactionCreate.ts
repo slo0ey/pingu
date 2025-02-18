@@ -20,11 +20,9 @@ async function interactionCreateListener(interaction: Interaction) {
         console.log('UNKNOWN ERROR!!');
       } else {
         const err = error as Error;
-        console.error(
-          `Error occurred: ${err.message}
-Cause: ${err.cause}
-Stack: ${err.stack}`,
-        );
+        console.error(`Error occurred: ${err.message}`);
+        console.error(`Cause: ${err.cause}`);
+        console.error(`Stack: ${err.stack}`);
       }
       await interaction.reply({
         content: '실행중 오류가 발생했습니다.. :cry:',
