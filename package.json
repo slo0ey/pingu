@@ -7,9 +7,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node dist/index.js",
-    "win:build": "rmdir dist /s /q && tsc",
-    "mac:build": "rm -rf dist && tsc"
+    "start": "pm2 start dist/index.js",
+    "dev": "node dist/index.js",
+    "build": "rm -rf dist && tsc",
+    "win:build": "rmdir dist /s /q && tsc"
   },
   "dependencies": {
     "discord.js": "^14.18.0",
