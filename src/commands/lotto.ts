@@ -6,6 +6,8 @@ import {
 import ChatInputCommand from '../command';
 import { lottoHelpEmbed } from '../embeds/lotto';
 
+type LottoType = 'lotto' | 'spd';
+
 class LottoCommand extends ChatInputCommand {
   constructor() {
     super(
@@ -22,9 +24,7 @@ class LottoCommand extends ChatInputCommand {
                 .setDescription('당첨 방식을 확인 할 로또의 종류')
                 .addChoices(
                   { name: '로또', value: 'lotto' },
-                  { name: '스피또 1000', value: 'spd1000' },
-                  { name: '스피또 2000', value: 'spd2000' },
-                  { name: '연금 복권', value: 'ltlotto' },
+                  { name: '즉석복권', value: 'spd' },
                 ),
             ),
         )
@@ -39,9 +39,7 @@ class LottoCommand extends ChatInputCommand {
                 .setRequired(true)
                 .addChoices(
                   { name: '로또', value: 'lotto' },
-                  { name: '스피또 1000', value: 'spd1000' },
-                  { name: '스피또 2000', value: 'spd2000' },
-                  { name: '연금 복권', value: 'ltlotto' },
+                  { name: '즉석복권', value: 'spd' },
                 ),
             )
             .addIntegerOption((option) =>
@@ -68,7 +66,7 @@ class LottoCommand extends ChatInputCommand {
     const avatar = interaction.client.user.avatarURL()!;
 
     if (subcommand === 'help') {
-      const type = interaction.options.getString('type', false);
+      const type = interaction.options.getString('type', false) as LottoType;
       if (type === null) {
         await interaction.reply({
           embeds: [lottoHelpEmbed(avatar)],
@@ -76,16 +74,42 @@ class LottoCommand extends ChatInputCommand {
         });
       } else {
         await interaction.reply({
-          content: '명령어 형식이 올바르지 않아요. :weary:',
+          content: '아직 개발중이에요. :tools:',
           flags: MessageFlags.Ephemeral,
         });
       }
+    } else if (subcommand == 'buy') {
+      const type = interaction.options.getString('type', false) as LottoType;
+      await this.buy(interaction, type);
+    } else if (subcommand == 'result') {
+      await this.result(interaction);
     } else {
       await interaction.reply({
         content: '명령어 형식이 올바르지 않아요. :weary:',
         flags: MessageFlags.Ephemeral,
       });
     }
+  }
+
+  // TODO: /lotto buy
+  private async buy(
+    interaction: ChatInputCommandInteraction,
+    type: LottoType,
+  ): Promise<void> {
+    await interaction.reply({
+      content: '아직 개발중이에요. :tools:',
+      flags: MessageFlags.Ephemeral,
+    });
+  }
+
+  // TODO: /lotto result
+  private async result(
+    interaction: ChatInputCommandInteraction,
+  ): Promise<void> {
+    await interaction.reply({
+      content: '아직 개발중이에요. :tools:',
+      flags: MessageFlags.Ephemeral,
+    });
   }
 }
 
