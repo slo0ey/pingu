@@ -4,7 +4,9 @@ import {
   SlashCommandBuilder,
 } from 'discord.js';
 import ChatInputCommand from '../command';
-import { lottoHelpEmbed } from '../embeds/lotto';
+import { lottoBuySpdEmbed, lottoHelpEmbed } from '../embeds/lotto';
+import { safeRand } from '../utils/math';
+import { lottoSpdProb } from '../constants/lotto';
 
 type LottoType = 'lotto' | 'spd';
 
@@ -78,10 +80,10 @@ class LottoCommand extends ChatInputCommand {
           flags: MessageFlags.Ephemeral,
         });
       }
-    } else if (subcommand == 'buy') {
+    } else if (subcommand === 'buy') {
       const type = interaction.options.getString('type', false) as LottoType;
       await this.buy(interaction, type);
-    } else if (subcommand == 'result') {
+    } else if (subcommand === 'result') {
       await this.result(interaction);
     } else {
       await interaction.reply({
@@ -96,10 +98,28 @@ class LottoCommand extends ChatInputCommand {
     interaction: ChatInputCommandInteraction,
     type: LottoType,
   ): Promise<void> {
-    await interaction.reply({
-      content: '아직 개발중이에요. :tools:',
-      flags: MessageFlags.Ephemeral,
-    });
+    const avatar = interaction.client.user.avatarURL()!;
+
+    if (type === 'lotto') {
+      await interaction.reply({
+        content: '아직 개발중이에요. :tools:',
+        flags: MessageFlags.Ephemeral,
+      });
+    } else if (type === 'spd') {
+      const count = interaction.options.getInteger('count') ?? 1;
+      const result: number[] = new Array(count).fill(0).map(() => {
+        const random = safeRand();
+        for (let i = 1; i <= 6; i++) {
+          if (random <= lottoSpdProb[i]) return i;
+        }
+        return 6;
+      });
+
+      await interaction.reply({
+        embeds: [lottoBuySpdEmbed(avatar, result)],
+        flags: MessageFlags.Ephemeral,
+      });
+    }
   }
 
   // TODO: /lotto result

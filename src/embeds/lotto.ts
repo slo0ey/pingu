@@ -1,4 +1,5 @@
 import { EmbedBuilder } from 'discord.js';
+import { lottoSpdResult } from '../constants/lotto';
 
 export const lottoHelpEmbed = (avatar: string) =>
   new EmbedBuilder()
@@ -14,4 +15,30 @@ export const lottoHelpEmbed = (avatar: string) =>
     .addFields(
       { name: '로또', value: '개당 **1000눗**', inline: true },
       { name: '즉석복권', value: '개당 **1000눗**', inline: true },
+    );
+
+export const lottoBuySpdEmbed = (avatar: string, result: number[]) =>
+  new EmbedBuilder()
+    .setColor(0x0f1112)
+    .setAuthor({ name: '즉석복권 당첨 결과', iconURL: avatar })
+    .setDescription(
+      '즉석복권 당첨 결과입니다. 다음에 또 이용해주세요! :saluting_face:',
+    )
+    .setThumbnail(
+      'https://blog.shift.moe/wp-content/uploads/2017/08/Shut-up-and-take-my-money-1024x640.jpg',
+    )
+    .addFields(
+      result.map((v) => {
+        if (v === 6)
+          return {
+            name: ':cry: 6등 당첨..',
+            value: '아쉽지만 다음 기회에..',
+            inline: true,
+          };
+        return {
+          name: `:tada: ${v}등 당첨!`,
+          value: `축하드립니다! **+${lottoSpdResult[v]}눗**`,
+          inline: true,
+        };
+      }),
     );
