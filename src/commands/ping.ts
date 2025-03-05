@@ -7,12 +7,7 @@ import ChatInputCommand from '../command';
 
 class PingCommand extends ChatInputCommand {
   constructor() {
-    super(
-      new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('Common ping-pong command.')
-        .toJSON(),
-    );
+    super({ authRequired: false });
   }
 
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
@@ -22,5 +17,10 @@ class PingCommand extends ChatInputCommand {
     });
   }
 }
+
+export const commandData = new SlashCommandBuilder()
+  .setName('ping')
+  .setDescription('봇의 응답 속도를 확인합니다.')
+  .toJSON();
 
 export default PingCommand;

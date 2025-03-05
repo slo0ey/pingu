@@ -4,33 +4,7 @@ import { randInt } from '../utils/math';
 
 class DiceCommand extends ChatInputCommand {
   constructor() {
-    super(
-      new SlashCommandBuilder()
-        .setName('dice')
-        .setDescription('주사위를 굴립니다.')
-        .addIntegerOption((option) =>
-          option
-            .setName('min')
-            .setDescription(
-              '주사위에서 나올 최소 숫자를 지정합니다. (최소값: 1)',
-            )
-            .setMinValue(1),
-        )
-        .addIntegerOption((option) =>
-          option
-            .setName('max')
-            .setDescription(
-              '주사위에서 나올 최대 숫자를 지정합니다. (최대값: 65535)',
-            )
-            .setMaxValue(65535),
-        )
-        .addUserOption((option) =>
-          option
-            .setName('user')
-            .setDescription('주사위 수를 비교할 상대를 지목합니다.'),
-        )
-        .toJSON(),
-    );
+    super({ authRequired: false });
   }
 
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
@@ -56,5 +30,27 @@ class DiceCommand extends ChatInputCommand {
     }
   }
 }
+
+export const commandData = new SlashCommandBuilder()
+  .setName('dice')
+  .setDescription('주사위를 굴립니다.')
+  .addIntegerOption((option) =>
+    option
+      .setName('min')
+      .setDescription('주사위에서 나올 최소 숫자를 지정합니다. (최소값: 1)')
+      .setMinValue(1),
+  )
+  .addIntegerOption((option) =>
+    option
+      .setName('max')
+      .setDescription('주사위에서 나올 최대 숫자를 지정합니다. (최대값: 65535)')
+      .setMaxValue(65535),
+  )
+  .addUserOption((option) =>
+    option
+      .setName('user')
+      .setDescription('주사위 수를 비교할 상대를 지목합니다.'),
+  )
+  .toJSON();
 
 export default DiceCommand;

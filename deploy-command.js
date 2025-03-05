@@ -9,8 +9,8 @@ const folderPath = join(__dirname, 'dist/commands');
 const commandFiles = readdirSync(folderPath);
 
 for (const file of commandFiles) {
-  const command = new (require(join(folderPath, file)).default)();
-  commands.push(command.commandData);
+  const commandData = require(join(folderPath, file)).commandData;
+  commands.push(commandData);
 }
 
 const rest = new REST().setToken(process.env.token);
