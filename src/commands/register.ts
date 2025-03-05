@@ -4,9 +4,10 @@ import {
   SlashCommandBuilder,
 } from 'discord.js';
 import ChatInputCommand from '../command';
-import Container from 'typedi';
+import Container, { Service } from 'typedi';
 import AuthService from '../services/auth';
 
+@Service()
 class RegisterCommand extends ChatInputCommand {
   private readonly authService: AuthService;
 
