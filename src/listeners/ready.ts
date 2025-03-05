@@ -20,7 +20,7 @@ async function readyListener() {
     synchronize: true,
     logging: true,
     timezone: '<LOCAL>',
-    entities: ['src/entities/*.ts'],
+    entities: ['dist/entities/*.js'],
     cache: {
       provider() {
         const cache = new NodeCache({

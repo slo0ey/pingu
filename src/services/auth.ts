@@ -1,7 +1,7 @@
 import { Inject, Service } from 'typedi';
 import { DataSource, Repository } from 'typeorm';
 import { DATASOURCE } from '../constants/di';
-import { BotUser } from '../entities/user.entity';
+import BotUser from '../entities/user.entity';
 
 @Service()
 class AuthService {

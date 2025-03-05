@@ -1,5 +1,5 @@
 import { type ChatInputCommandInteraction } from 'discord.js';
-import { BotUser } from './entities/user.entity';
+import BotUser from './entities/user.entity';
 
 type ChatInputCommandOption = {
   authRequired:

@@ -4,7 +4,9 @@ import {
   SlashCommandBuilder,
 } from 'discord.js';
 import ChatInputCommand from '../command';
+import { Service } from 'typedi';
 
+@Service()
 class PingCommand extends ChatInputCommand {
   constructor() {
     super({ authRequired: false });
