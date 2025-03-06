@@ -4,28 +4,25 @@ import {
   SlashCommandBuilder,
 } from 'discord.js';
 import ChatInputCommand from '../command';
-import Container, { Service } from 'typedi';
 import AuthService from '../services/auth';
+import { singleton } from 'tsyringe';
 
-@Service()
+@singleton()
 class RegisterCommand extends ChatInputCommand {
-  private readonly authService: AuthService;
-
-  constructor() {
+  constructor(private readonly authService: AuthService) {
     super({ authRequired: false });
-    this.authService = Container.get(AuthService);
   }
 
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
-    const registerResult = await this.authService.checkUserAndRegister(
-      interaction.user.id,
-    );
-    if (registerResult) {
+    const id = interaction.user.id;
+    const user = await this.authService.getUser(id);
+    if (user) {
       await interaction.reply({
         content: '계정이 생성되었습니다! :eyes:',
         flags: MessageFlags.Ephemeral,
       });
     } else {
+      await this.authService.createUser(id);
       await interaction.reply({
         content: '이미 계정이 존재합니다. :unamused:',
         flags: MessageFlags.Ephemeral,
