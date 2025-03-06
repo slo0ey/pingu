@@ -8,11 +8,11 @@ import { lottoBuySpdEmbed, lottoHelpEmbed } from '../embeds/lotto';
 import { safeRand } from '../utils/math';
 import { lottoSpdProb } from '../constants/lotto';
 import BotUser from '../entities/user.entity';
-import { Service } from 'typedi';
+import { singleton } from 'tsyringe';
 
 type LottoType = 'lotto' | 'spd';
 
-@Service()
+@singleton()
 class LottoCommand extends ChatInputCommand {
   constructor() {
     super({

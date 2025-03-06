@@ -11,15 +11,13 @@ class AuthService {
     this.userRepository = dataSource.getRepository(BotUser);
   }
 
-  async checkUserAndRegister(userId: string) {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
-    if (!user) {
-      await this.userRepository.findOne({
-        where: { id: userId },
-      });
-      return true;
-    }
-    return false;
+  async getUser(userId: string) {
+    return this.userRepository.findOne({ where: { id: userId } });
+  }
+
+  async createUser(userId: string) {
+    const user = this.userRepository.create({ id: userId });
+    await this.userRepository.save(user);
   }
 }
 

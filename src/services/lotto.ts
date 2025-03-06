@@ -1,8 +1,8 @@
-import { Service } from 'typedi';
 import { safeRand } from '../utils/math';
 import { lottoSpdProb } from '../constants/lotto';
+import { singleton } from 'tsyringe';
 
-@Service()
+@singleton()
 class LottoService {
   public buyLottoSpd(count: number): number[] {
     const result: number[] = new Array(count);
