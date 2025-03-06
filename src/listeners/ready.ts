@@ -3,10 +3,10 @@ import {
   chatInputCommandMap,
   registerChatInputCommand,
 } from '../utils/commandMap';
-import Container from 'typedi';
 import { DATASOURCE } from '../constants/di';
 import NodeCache from 'node-cache';
 import InMemoryCacheProvider from 'typeorm-in-memory-cache';
+import { container } from 'tsyringe';
 
 async function readyListener() {
   console.log('Connect to db..');
@@ -32,7 +32,7 @@ async function readyListener() {
     },
   });
   await dataSource.initialize();
-  Container.set(DATASOURCE, dataSource);
+  container.registerSingleton(DATASOURCE, DataSource);
   console.log('Connected to db!');
 
   console.log('Load all commands..');

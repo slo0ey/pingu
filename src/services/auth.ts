@@ -1,13 +1,13 @@
-import { Inject, Service } from 'typedi';
 import { DataSource, Repository } from 'typeorm';
 import { DATASOURCE } from '../constants/di';
 import BotUser from '../entities/user.entity';
+import { inject, singleton } from 'tsyringe';
 
-@Service()
+@singleton()
 class AuthService {
   private readonly userRepository: Repository<BotUser>;
 
-  constructor(@Inject(DATASOURCE) dataSource: DataSource) {
+  constructor(@inject(DATASOURCE) dataSource: DataSource) {
     this.userRepository = dataSource.getRepository(BotUser);
   }
 

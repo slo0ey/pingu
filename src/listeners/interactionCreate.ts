@@ -13,6 +13,23 @@ async function interactionCreateListener(interaction: Interaction) {
       return;
     }
 
+    if (command.isDeveloperCommand()) {
+      if (interaction.user.id !== process.env.devId) {
+        await interaction.reply({
+          content: '해당 명령어는 개발자만 사용할 수 있습니다.. :x:',
+          flags: MessageFlags.Ephemeral,
+        });
+        return;
+      }
+    }
+
+    if (command.isAuthRequired(interaction)) {
+      await interaction.reply({
+        content: '유저 등록이 필요한 명령어입니다! `/register` :sunglasses:',
+        flags: MessageFlags.Ephemeral,
+      });
+    }
+
     try {
       await command.execute(interaction);
     } catch (error) {
