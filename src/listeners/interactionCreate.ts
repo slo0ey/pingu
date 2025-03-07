@@ -1,11 +1,16 @@
 import { Client, Interaction, MessageFlags } from 'discord.js';
-import { chatInputCommandMap } from '../utils/commandMap';
-import { singleton } from 'tsyringe';
+import { inject, singleton } from 'tsyringe';
 import AuthService from '../services/auth';
+import { COMMAND_MAP } from '../constants/di';
+import ChatInputCommand from '../command';
 
 @singleton()
 class InteractionCreateListener {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    @inject(COMMAND_MAP)
+    private readonly commandMap: Map<string, ChatInputCommand>,
+  ) {}
 
   listen(client: Client) {
     client.on('interactionCreate', this.on);
@@ -13,7 +18,7 @@ class InteractionCreateListener {
 
   async on(interaction: Interaction) {
     if (interaction.isChatInputCommand()) {
-      const command = chatInputCommandMap.get(interaction.commandName);
+      const command = this.commandMap.get(interaction.commandName);
 
       if (!command) {
         await interaction.reply({
