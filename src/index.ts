@@ -14,6 +14,7 @@ async function run() {
 
   await initializeDatabase();
   await registerAllCommands();
+  client.once('ready', () => console.log('Bot ready!'));
 
   const listener = container.resolve(InteractionCreateListener);
   listener.listen(client);

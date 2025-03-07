@@ -1,9 +1,9 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import ChatInputCommand from '../command';
 import { randInt } from '../utils/math';
-import { singleton } from 'tsyringe';
+import { injectable } from 'tsyringe';
 
-@singleton()
+@injectable()
 class DiceCommand extends ChatInputCommand {
   constructor() {
     super({ authRequired: false });
